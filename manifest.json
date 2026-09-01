@@ -1,6 +1,6 @@
 {
-  "name": "Mi Generador de Arte Procedural",
-  "short_name": "ArteProcedural",
+  "name": "Sand box Nivel Creator",
+  "short_name": "Sand box game nivel creator",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#121212",
