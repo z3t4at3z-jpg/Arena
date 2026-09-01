@@ -599,5 +599,109 @@
       });
     }
   </script>
+  <!-- Estilos visuales optimizados (Más compactos y discretos) -->
+  <style>
+    #banner-ios-pwa {
+      position: fixed;
+      top: 15px; /* Cambiado a la parte superior para no tapar los controles del cepillo abajo */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 88%;
+      max-width: 350px;
+      background-color: rgba(22, 27, 34, 0.95); /* Ligeramente transparente para integrarse mejor */
+      color: #c9d1d9;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.6);
+      z-index: 99999;
+      display: none;
+      animation: aparecerSuave 0.4s ease-out;
+    }
+
+    @keyframes aparecerSuave {
+      from { top: -50px; opacity: 0; }
+      to { top: 15px; opacity: 1; }
+    }
+
+    .pwa-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .pwa-titulo {
+      font-weight: bold;
+      color: #58a6ff;
+      font-size: 0.95em;
+    }
+
+    .pwa-cerrar {
+      background: none;
+      border: none;
+      color: #8b949e;
+      font-size: 1.2em;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+
+    .pwa-texto {
+      font-size: 0.85em;
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .pwa-boton-ios {
+      display: inline-block;
+      background-color: #21262d;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #ffffff;
+      font-size: 0.9em;
+    }
+  </style>
+    <!-- Estructura HTML del mensaje flotante discreto -->
+  <div id="banner-ios-pwa">
+    <div class="pwa-header">
+      <span class="pwa-titulo">📲 Instala Falling Sand</span>
+      <button class="pwa-cerrar" onclick="cerrarBannerIOS()">&times;</button>
+    </div>
+    <p class="pwa-texto">
+      Toca <span class="pwa-boton-ios">Compartir 📤</span> en Safari y luego
+      <span class="pwa-boton-ios">Añadir a la pantalla de inicio ➕</span> para jugar sin navegador.
+    </p>
+  </div>
+
+  <!-- Lógica de detección con temporizador de 7 segundos -->
+  <script>
+    window.addEventListener('load', () => {
+      // 1. Detectar si es un dispositivo de Apple (iOS)
+      const esIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+      // 2. Detectar si se está abriendo desde el navegador normal (no instalado)
+      const noEstaInstalado = !('standalone' in window.navigator) || !window.navigator.standalone;
+
+      if (esIOS && noEstaInstalado) {
+        const banner = document.getElementById('banner-ios-pwa');
+        banner.style.display = 'block';
+
+        // Cerrar automáticamente el cartel tras 7000 milisegundos (7 segundos)
+        setTimeout(() => {
+          cerrarBannerIOS();
+        }, 7000);
+      }
+    });
+
+    function cerrarBannerIOS() {
+      const banner = document.getElementById('banner-ios-pwa');
+      if (banner) {
+        banner.style.display = 'none';
+      }
+    }
+  </script>
 </body>
 </html>
